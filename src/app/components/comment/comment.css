@@ -1,0 +1,9 @@
+#commentTitle {
+    height: 20px;
+    border: 1px solid  blue 
+}
+
+#commentBody {
+    height: 50px;
+    border: 1px solid blue
+}
