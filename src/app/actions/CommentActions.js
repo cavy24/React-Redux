@@ -36,13 +36,9 @@ export default class CommentActions
 
     static delComment(id)
     {
-        let deliteComment = {
-            id
-        };
-
         return {
             type: DEL_COMMENT,
-            payload: deliteComment
+            payload: id
         };
     }
 

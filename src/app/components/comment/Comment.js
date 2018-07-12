@@ -1,15 +1,16 @@
 import React from 'react';
-
+import store from '../../stores/store';
+import {connect} from 'react-redux';
 import './comment.css'
-import {delComment, editComment} from "../../actions/CommentActions";
-export default class Comment extends React.Component {
+import CommentActions from '../../actions/CommentActions';
+class Comment extends React.Component {
 
     constructor(props)
     {
         super(props);
     
        this.comments = [];
-        this.deleteComment = this.deleteComment.bind(this);
+        this.deliteComment = this.deliteComment.bind(this);
         this.editeComment = this.editeComment.bind(this);
     }
     render() {
@@ -31,11 +32,11 @@ export default class Comment extends React.Component {
     );
     }
 
-    deleteComment(deliteComment){
-        let deliteComment = this.props.id;
+    deliteComment(){
+        let idDel = this.props.id;
         console.log(this.props.id);
-             
-        delComment(deliteComment);
+        
+        CommentActions.delComment(idDel);
     }
 
     editeComment(){
@@ -43,12 +44,12 @@ export default class Comment extends React.Component {
         let id = this.props.id;
         let body = document.getElementById('commentBody').innerHTML;
         console.log(id, title, body);
-        document.getElementById("commentTitle").innerHTML = '';
-        document.getElementById("commentBody").innerHTML = '';
+        //document.getElementById("commentTitle").innerHTML = '';
+        //document.getElementById("commentBody").innerHTML = '';
         title = prompt('Тема');
         body = prompt('Текст');
         console.log(title, body);
-        editComment({id, title, body})
+        CommentActions.editComment({id, title, body})
       }
 
     /*editeComment(){
@@ -67,3 +68,12 @@ export default class Comment extends React.Component {
     }*/
 
 }
+
+function mapStateToProps(store) {
+    return {
+        comments: store.comments.comments,
+        is_loading: store.comments.is_loading
+    }
+}
+
+export default connect(mapStateToProps)(Comment);

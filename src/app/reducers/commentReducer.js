@@ -46,7 +46,7 @@ export function commentReducer(state = {comments: [], is_loading: false}, action
 
         case CommentConstants.DEL_COMMENT: {
             let comments = state.comments;
-            comment.splice(action.payload);
+            comments.splice(id, 1)(action.payload);
             state = {...state, comments};
             break;
         }

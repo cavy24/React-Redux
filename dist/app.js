@@ -104,7 +104,7 @@
 	            _react2.default.createElement(
 	                _reactRouter.Route,
 	                { path: 'blog', component: _Blog2.default },
-	                _react2.default.createElement(_reactRouter.Route, { path: ':hrefBlogPost', component: _BlogPost2.default })
+	                _react2.default.createElement(_reactRouter.Route, { path: ':hrefBlog', component: _BlogPost2.default })
 	            ),
 	            _react2.default.createElement(_reactRouter.Route, { path: '*', component: _PageNotFound2.default })
 	        )
@@ -27739,7 +27739,6 @@
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-	exports.default = undefined;
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
@@ -27747,9 +27746,17 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
+	var _store = __webpack_require__(284);
+	
+	var _store2 = _interopRequireDefault(_store);
+	
+	var _reactRedux = __webpack_require__(314);
+	
 	__webpack_require__(253);
 	
 	var _CommentActions = __webpack_require__(257);
+	
+	var _CommentActions2 = _interopRequireDefault(_CommentActions);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -27768,7 +27775,7 @@
 	        var _this = _possibleConstructorReturn(this, (Comment.__proto__ || Object.getPrototypeOf(Comment)).call(this, props));
 	
 	        _this.comments = [];
-	        _this.deleteComment = _this.deleteComment.bind(_this);
+	        _this.deliteComment = _this.deliteComment.bind(_this);
 	        _this.editeComment = _this.editeComment.bind(_this);
 	        return _this;
 	    }
@@ -27824,12 +27831,12 @@
 	            );
 	        }
 	    }, {
-	        key: 'deleteComment',
-	        value: function deleteComment() {
-	            var deliteComment = this.props.id;
+	        key: 'deliteComment',
+	        value: function deliteComment() {
+	            var idDel = this.props.id;
 	            console.log(this.props.id);
 	
-	            (0, _CommentActions.delComment)(deliteComment);
+	            _CommentActions2.default.delComment(idDel);
 	        }
 	    }, {
 	        key: 'editeComment',
@@ -27838,12 +27845,12 @@
 	            var id = this.props.id;
 	            var body = document.getElementById('commentBody').innerHTML;
 	            console.log(id, title, body);
-	            document.getElementById("commentTitle").innerHTML = '';
-	            document.getElementById("commentBody").innerHTML = '';
+	            //document.getElementById("commentTitle").innerHTML = '';
+	            //document.getElementById("commentBody").innerHTML = '';
 	            title = prompt('Тема');
 	            body = prompt('Текст');
 	            console.log(title, body);
-	            (0, _CommentActions.editComment)({ id: id, title: title, body: body });
+	            _CommentActions2.default.editComment({ id: id, title: title, body: body });
 	        }
 	
 	        /*editeComment(){
@@ -27866,7 +27873,14 @@
 	    return Comment;
 	}(_react2.default.Component);
 	
-	exports.default = Comment;
+	function mapStateToProps(store) {
+	    return {
+	        comments: store.comments.comments,
+	        is_loading: store.comments.is_loading
+	    };
+	}
+	
+	exports.default = (0, _reactRedux.connect)(mapStateToProps)(Comment);
 
 /***/ }),
 /* 253 */
@@ -28279,13 +28293,9 @@
 	    }, {
 	        key: 'delComment',
 	        value: function delComment(id) {
-	            var deliteComment = {
-	                id: id
-	            };
-	
 	            return {
 	                type: _commentConstants.DEL_COMMENT,
-	                payload: deliteComment
+	                payload: id
 	            };
 	        }
 	    }]);
@@ -32027,7 +32037,7 @@
 	        case CommentConstants.DEL_COMMENT:
 	            {
 	                var _comments2 = state.comments;
-	                comment.splice(action.payload);
+	                _comments2.splice(id, 1)(action.payload);
 	                state = _extends({}, state, { comments: _comments2 });
 	                break;
 	            }
