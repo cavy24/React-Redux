@@ -38,8 +38,8 @@ class Comments extends React.Component {
         let id = Math.floor(Math.random() * 1000 - 1 + 1) + 1;
         let title = 'Название нового поста';
         let body = 'Текст нового поста';
-        this.props.dispatch({userId, id, title, body});      
-        CommentActions.addComment(userId, id, title, body);
+        let comment = CommentActions.addComment(userId, id, title, body);
+        this.props.dispatch(comment);      
         console.log(this.props.comments);
     }
 

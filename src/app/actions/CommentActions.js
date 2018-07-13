@@ -24,13 +24,13 @@ export default class CommentActions
 
     static editComment(id, title, body)
     {
-        let comment = {
+        let edComment = {
             id, title, body
         };
 
         return {
             type: EDIT_COMMENT,
-            payload: comment
+            payload: edComment
         };
     }
 

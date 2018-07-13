@@ -5,14 +5,14 @@ import './comment.css'
 import CommentActions from '../../actions/CommentActions';
 class Comment extends React.Component {
 
-    /*constructor(props)
+    constructor(props)
     {
         super(props);
     
        this.comments = [];
         this.deleteComment = this.deleteComment.bind(this);
         this.editeComment = this.editeComment.bind(this);
-    }*/
+    }
     render() {
     return (
         <div className="panel panel-default">
