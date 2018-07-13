@@ -31,22 +31,38 @@ export function commentReducer(state = {comments: [], is_loading: false}, action
         }
 
         case CommentConstants.EDIT_COMMENT: {
-            let comments = state.comments;
-            for (let i = 0; i < this.comments.length; i++) 
+                let comments = state.comments;
+                for (let i = 0; i < comments.length; i++) 
+                {
+                let comment = comments[i];
+                if (comment.id['id'] === comments[i].id){
+                comments[i].title = comment.id['title'];
+                comments[i].body = comment.id['body'];
+                break;
+                }
+            }
+            /*let comments = state.comments;
+            let comment = this.comments[i];
+            for (let i = 0; i < comments.length; i++) 
             {
-                if (comment.id['id'] === this.comments[i].id){
-                    this.comments[i].title = comment.id['title'];
-                    this.comments[i].body = comment.id['body'];
-                     break;
+                if (comment['id'] === comments[i]['id']){
+                    comments[i]['title'] = comment['title'];
+                    comments[i]['body'] = comment['body'];
+                    break;
                 }
             };
             state = {...state, comments};
-            break;
+            break;*/
         }
 
         case CommentConstants.DEL_COMMENT: {
             let comments = state.comments;
-            comments.splice(id, 1)(action.payload);
+            for(let i = 0; i < comments.length; i++) {
+                let comment = comments[i];
+                if(comment['id'] == comments[i]['id'])
+                comments.splice(i, 1);
+            }
+            
             state = {...state, comments};
             break;
         }

@@ -7,6 +7,14 @@ import {connect} from 'react-redux';
 
 
 class Comments extends React.Component {
+
+    constructor(props) {
+        super(props);
+
+        this.newComments = this.newComments.bind(this);
+    }
+    
+
     render() {
 
         if(this.props.is_loading){
@@ -15,7 +23,7 @@ class Comments extends React.Component {
 
         return <div> 
             <ul className = 'pager'>
-                <button className="btn btn-primary" onClick={this.newComment}>Добавить новый комментарий</button>
+                <button className="btn btn-primary" onClick={this.newComments}>Добавить новый комментарий</button>
             </ul>
         {
             (!this.props.children) ?
@@ -24,6 +32,17 @@ class Comments extends React.Component {
         }
         </div>
     }
+
+    newComments(){
+        let userId =  +this.props.comments[this.props.comments.length-1]['userId'] + 1;
+        let id = Math.floor(Math.random() * 1000 - 1 + 1) + 1;
+        let title = 'Название нового поста';
+        let body = 'Текст нового поста';
+        this.props.dispatch({userId, id, title, body});      
+        CommentActions.addComment(userId, id, title, body);
+        console.log(this.props.comments);
+    }
+
 
     componentDidMount()
     {

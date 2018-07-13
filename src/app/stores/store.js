@@ -10,8 +10,6 @@ import {commentReducer} from '../reducers/commentReducer';
 const middleware = applyMiddleware(promiseMiddleware(), logger());
 const reducers = combineReducers({
     comments: commentReducer,
-    comment: commentReducer
-    //user: usersReducer
 });
 
 //Создаем стор

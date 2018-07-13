@@ -5,14 +5,14 @@ import './comment.css'
 import CommentActions from '../../actions/CommentActions';
 class Comment extends React.Component {
 
-    constructor(props)
+    /*constructor(props)
     {
         super(props);
     
        this.comments = [];
-        this.deliteComment = this.deliteComment.bind(this);
+        this.deleteComment = this.deleteComment.bind(this);
         this.editeComment = this.editeComment.bind(this);
-    }
+    }*/
     render() {
     return (
         <div className="panel panel-default">
@@ -32,11 +32,12 @@ class Comment extends React.Component {
     );
     }
 
-    deliteComment(){
-        let idDel = this.props.id;
+    deleteComment(){
+        let id = this.props.id;
         console.log(this.props.id);
-        
-        CommentActions.delComment(idDel);
+       
+        let comment = CommentActions.delComment(id);
+        this.props.dispatch(comment);
     }
 
     editeComment(){
@@ -49,24 +50,12 @@ class Comment extends React.Component {
         title = prompt('Тема');
         body = prompt('Текст');
         console.log(title, body);
-        CommentActions.editComment({id, title, body})
+        let comment = CommentActions.editComment(title, id, body);
+        this.props.dispatch(comment);
+        
       }
-
-    /*editeComment(){
-        let id = this.props.id;
-        let title = document.getElementById('commentTitle');
-        let body = document.getElementById('commentBody');
-        //console.log(this.props.id, this.props.title, this.props.body);
-        console.log(id, title, body);
-        title.innerText = prompt('Enter some name');
-        body.innerText = prompt('Enter some text');
-        editComment({id, title, body});
-    }*/
-
-      /* componentDidMount(){
-        getComments(); //Action, получаем комменты
-    }*/
-
+      /** let comments = CommentActions.getComments();
+        this.props.dispatch(comments); */
 }
 
 function mapStateToProps(store) {

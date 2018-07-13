@@ -12,33 +12,36 @@ export default class CommentActions
 
     static addComment(userId, id, title, body)
     {
-        let newComment = {
+        let comment = {
             userId, id, title, body
         };
 
         return {
             type: ADD_COMMENT,
-            payload: newComment
+            payload: comment
         };
     }
 
     static editComment(id, title, body)
     {
-        let edComment = {
+        let comment = {
             id, title, body
         };
 
         return {
             type: EDIT_COMMENT,
-            payload: edComment
+            payload: comment
         };
     }
 
     static delComment(id)
     {
+        let comment = {
+            id
+        };
         return {
             type: DEL_COMMENT,
-            payload: id
+            payload: comment
         };
     }
 
