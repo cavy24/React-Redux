@@ -27860,9 +27860,6 @@
 	
 	            this.props.dispatch(_CommentActions2.default.editComment(this.props.id, title, body));
 	        }
-	        /** let comments = CommentActions.getComments();
-	          this.props.dispatch(comments); */
-	
 	    }]);
 	
 	    return Comment;
@@ -30055,13 +30052,7 @@
 	    switch (action.type) {
 	        case CommentConstants.GET_COMMENTS_PENDING:
 	            {
-	                //Первый способ
-	                // state = {
-	                //     users: [],
-	                //     is_loading: true,
-	                // };
 	
-	                //Второй способ
 	                state = _extends({}, state, { is_loading: true });
 	                break;
 	            }

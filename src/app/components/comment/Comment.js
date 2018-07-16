@@ -44,8 +44,6 @@ class Comment extends React.Component {
         
         this.props.dispatch(CommentActions.editComment(this.props.id, title, body));
     }
-      /** let comments = CommentActions.getComments();
-        this.props.dispatch(comments); */
 }
 
 function mapStateToProps(store) {

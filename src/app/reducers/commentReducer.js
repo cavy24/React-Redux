@@ -4,13 +4,7 @@ export function commentReducer(state = {comments: [], is_loading: false}, action
     switch (action.type)
     {
         case CommentConstants.GET_COMMENTS_PENDING: {
-            //Первый способ
-            // state = {
-            //     users: [],
-            //     is_loading: true,
-            // };
-
-            //Второй способ
+            
             state = {...state, is_loading: true};
             break;
         }
