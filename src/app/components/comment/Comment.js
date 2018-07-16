@@ -9,7 +9,7 @@ class Comment extends React.Component {
     {
         super(props);
     
-       this.comments = [];
+        this.comments = [];
         this.deleteComment = this.deleteComment.bind(this);
         this.editeComment = this.editeComment.bind(this);
     }
@@ -33,27 +33,17 @@ class Comment extends React.Component {
     }
 
     deleteComment(){
-        let id = this.props.id;
-        console.log(this.props.id);
        
-        let comment = CommentActions.delComment(id);
-        this.props.dispatch(comment);
+        this.props.dispatch(CommentActions.delComment(this.props.id));
     }
 
     editeComment(){
-        let title = document.getElementById('commentTitle').innerHTML;
-        let id = this.props.id;
-        let body = document.getElementById('commentBody').innerHTML;
-        console.log(id, title, body);
-        //document.getElementById("commentTitle").innerHTML = '';
-        //document.getElementById("commentBody").innerHTML = '';
-        title = prompt('Тема');
-        body = prompt('Текст');
-        console.log(title, body);
-        let comment = CommentActions.editComment(title, id, body);
-        this.props.dispatch(comment);
+      
+        let title = prompt('Тема');
+        let body = prompt('Текст');
         
-      }
+        this.props.dispatch(CommentActions.editComment(this.props.id, title, body));
+    }
       /** let comments = CommentActions.getComments();
         this.props.dispatch(comments); */
 }

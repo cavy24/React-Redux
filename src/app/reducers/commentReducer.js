@@ -15,7 +15,7 @@ export function commentReducer(state = {comments: [], is_loading: false}, action
             break;
         }
         case CommentConstants.GET_COMMENTS_FULFILLED: {
-            state = {...state, is_loading: false, comments: action.payload.data};
+            state = {...state, is_loading: false, comments: action.payload.data.reverse()};
             break;
         }
         case CommentConstants.GET_COMMENTS_REJECTED: {
@@ -24,45 +24,35 @@ export function commentReducer(state = {comments: [], is_loading: false}, action
         }
 
         case CommentConstants.ADD_COMMENT: {
-            let comments = state.comments;
-            comments.unshift(action.payload);
-            state = {...state, comments};
+            console.log(action.payload);
+            let comments;
+           
+            //state.comments.unshift(action.payload);
+            state = {...state, 
+            comments: [action.payload].concat(state.comments)};
             break;
         }
 
         case CommentConstants.EDIT_COMMENT: {
-               /* let comments = state.comments;
-                for (let i = 0; i < comments.length; i++) 
-                {
-                //let comment = comments[i];
-                if (comment.id['id'] === comments[i].id){
-                comments[i].title = comment.id['title'];
-                comments[i].body = comment.id['body'];
-                break;
-                }
-                }*/
-            let comments = state.comments;
-            for (let i = 0; i < comments.length; i++) 
-            {
-                if (action.payload['id'] === comments[i]['id']){
-                    comments[i]['title'] = action.payload['title'];
-                    comments[i]['body'] = action.payload['body'];
-                    break;
-                }
-            };
-            state = {...state, comments};
-            break;
+          
+           let comments;
+           
+          /**(function(comment) {
+            if(comment.id == action.payload.id) {
+             comment.title = action.payload.title;
+             comment.body = action.payload.body;
+            } */
+         
+           state = {...state, 
+           comments: state.comments.map(comment => comment.id === action.payload.id ? (comment.title = action.payload.title, comment.body = action.payload.body, comment) : comment)};
+           break;
         }
 
         case CommentConstants.DEL_COMMENT: {
-            let comments = state.comments;
-            for(let i = 0; i < comments.length; i++) {
-                //let comment = comments[i];
-                if(action.payload['id'] == comments[i]['id'])
-                comments.splice(i, 1);
-            }
-            
-            state = {...state, comments};
+           
+            state = {
+                ...state,
+                comments: state.comments.filter(elem => elem.id !== action.payload.id && elem ) } ;
             break;
         }
     }

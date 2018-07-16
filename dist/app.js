@@ -27608,6 +27608,7 @@
 	
 	        var _this = _possibleConstructorReturn(this, (Comments.__proto__ || Object.getPrototypeOf(Comments)).call(this, props));
 	
+	        _this.comments = [];
 	        _this.newComments = _this.newComments.bind(_this);
 	        return _this;
 	    }
@@ -27642,13 +27643,13 @@
 	    }, {
 	        key: 'newComments',
 	        value: function newComments() {
-	            var userId = +this.props.comments[this.props.comments.length - 1]['userId'] + 1;
+	            var userId = this.props.comments[0]['userId'] + 1;
+	            console.log(this.props.comments[0]['userId']);
 	            var id = Math.floor(Math.random() * 1000 - 1 + 1) + 1;
-	            var title = 'Название нового поста';
-	            var body = 'Текст нового поста';
-	            this.props.dispatch({ userId: userId, id: id, title: title, body: body });
-	            _CommentActions2.default.addComment(userId, id, title, body);
-	            console.log(this.props.comments);
+	            var title = prompt('Тема');
+	            var body = prompt('Текст');
+	
+	            this.props.dispatch(_CommentActions2.default.addComment(userId, id, title, body));
 	        }
 	    }, {
 	        key: 'componentDidMount',
@@ -27783,24 +27784,19 @@
 	var Comment = function (_React$Component) {
 	    _inherits(Comment, _React$Component);
 	
-	    function Comment() {
+	    function Comment(props) {
 	        _classCallCheck(this, Comment);
 	
-	        return _possibleConstructorReturn(this, (Comment.__proto__ || Object.getPrototypeOf(Comment)).apply(this, arguments));
+	        var _this = _possibleConstructorReturn(this, (Comment.__proto__ || Object.getPrototypeOf(Comment)).call(this, props));
+	
+	        _this.comments = [];
+	        _this.deleteComment = _this.deleteComment.bind(_this);
+	        _this.editeComment = _this.editeComment.bind(_this);
+	        return _this;
 	    }
 	
 	    _createClass(Comment, [{
 	        key: 'render',
-	
-	
-	        /*constructor(props)
-	        {
-	            super(props);
-	        
-	           this.comments = [];
-	            this.deleteComment = this.deleteComment.bind(this);
-	            this.editeComment = this.editeComment.bind(this);
-	        }*/
 	        value: function render() {
 	            return _react2.default.createElement(
 	                'div',
@@ -27852,26 +27848,17 @@
 	    }, {
 	        key: 'deleteComment',
 	        value: function deleteComment() {
-	            var id = this.props.id;
-	            console.log(this.props.id);
 	
-	            var comment = _CommentActions2.default.delComment(id);
-	            this.props.dispatch(comment);
+	            this.props.dispatch(_CommentActions2.default.delComment(this.props.id));
 	        }
 	    }, {
 	        key: 'editeComment',
 	        value: function editeComment() {
-	            var title = document.getElementById('commentTitle').innerHTML;
-	            var id = this.props.id;
-	            var body = document.getElementById('commentBody').innerHTML;
-	            console.log(id, title, body);
-	            //document.getElementById("commentTitle").innerHTML = '';
-	            //document.getElementById("commentBody").innerHTML = '';
-	            title = prompt('Тема');
-	            body = prompt('Текст');
-	            console.log(title, body);
-	            var comment = _CommentActions2.default.editComment(title, id, body);
-	            this.props.dispatch(comment);
+	
+	            var title = prompt('Тема');
+	            var body = prompt('Текст');
+	
+	            this.props.dispatch(_CommentActions2.default.editComment(this.props.id, title, body));
 	        }
 	        /** let comments = CommentActions.getComments();
 	          this.props.dispatch(comments); */
@@ -30080,7 +30067,7 @@
 	            }
 	        case CommentConstants.GET_COMMENTS_FULFILLED:
 	            {
-	                state = _extends({}, state, { is_loading: false, comments: action.payload.data });
+	                state = _extends({}, state, { is_loading: false, comments: action.payload.data.reverse() });
 	                break;
 	            }
 	        case CommentConstants.GET_COMMENTS_REJECTED:
@@ -30091,46 +30078,40 @@
 	
 	        case CommentConstants.ADD_COMMENT:
 	            {
-	                var comments = state.comments;
-	                comments.unshift(action.payload);
-	                state = _extends({}, state, { comments: comments });
+	                console.log(action.payload);
+	                var comments = void 0;
+	
+	                //state.comments.unshift(action.payload);
+	                state = _extends({}, state, {
+	                    comments: [action.payload].concat(state.comments) });
 	                break;
 	            }
 	
 	        case CommentConstants.EDIT_COMMENT:
 	            {
-	                var _comments = state.comments;
-	                for (var i = 0; i < _comments.length; i++) {
-	                    var comment = _comments[i];
-	                    if (comment.id['id'] === _comments[i].id) {
-	                        _comments[i].title = comment.id['title'];
-	                        _comments[i].body = comment.id['body'];
-	                        break;
-	                    }
-	                }
-	                /*let comments = state.comments;
-	                let comment = this.comments[i];
-	                for (let i = 0; i < comments.length; i++) 
-	                {
-	                    if (comment['id'] === comments[i]['id']){
-	                        comments[i]['title'] = comment['title'];
-	                        comments[i]['body'] = comment['body'];
-	                        break;
-	                    }
-	                };
-	                state = {...state, comments};
-	                break;*/
+	
+	                var _comments = void 0;
+	
+	                /**(function(comment) {
+	                  if(comment.id == action.payload.id) {
+	                   comment.title = action.payload.title;
+	                   comment.body = action.payload.body;
+	                  } */
+	
+	                state = _extends({}, state, {
+	                    comments: state.comments.map(function (comment) {
+	                        return comment.id === action.payload.id ? (comment.title = action.payload.title, comment.body = action.payload.body, comment) : comment;
+	                    }) });
+	                break;
 	            }
 	
 	        case CommentConstants.DEL_COMMENT:
 	            {
-	                var _comments2 = state.comments;
-	                for (var _i = 0; _i < _comments2.length; _i++) {
-	                    var _comment = _comments2[_i];
-	                    if (_comment['id'] == _comments2[_i]['id']) _comments2.splice(_i, 1);
-	                }
 	
-	                state = _extends({}, state, { comments: _comments2 });
+	                state = _extends({}, state, {
+	                    comments: state.comments.filter(function (elem) {
+	                        return elem.id !== action.payload.id && elem;
+	                    }) });
 	                break;
 	            }
 	    }
@@ -31696,13 +31677,13 @@
 	    }, {
 	        key: 'editComment',
 	        value: function editComment(id, title, body) {
-	            var comment = {
+	            var edComment = {
 	                id: id, title: title, body: body
 	            };
 	
 	            return {
 	                type: _commentConstants.EDIT_COMMENT,
-	                payload: comment
+	                payload: edComment
 	            };
 	        }
 	    }, {

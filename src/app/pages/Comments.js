@@ -10,7 +10,7 @@ class Comments extends React.Component {
 
     constructor(props) {
         super(props);
-
+        this.comments = [];
         this.newComments = this.newComments.bind(this);
     }
     
@@ -34,13 +34,13 @@ class Comments extends React.Component {
     }
 
     newComments(){
-        let userId =  +this.props.comments[this.props.comments.length-1]['userId'] + 1;
+        let userId =  this.props.comments[0]['userId'] + 1;
+        console.log(this.props.comments[0]['userId']);
         let id = Math.floor(Math.random() * 1000 - 1 + 1) + 1;
-        let title = 'Название нового поста';
-        let body = 'Текст нового поста';
-        let comment = CommentActions.addComment(userId, id, title, body);
-        this.props.dispatch(comment);      
-        console.log(this.props.comments);
+        let title = prompt('Тема');
+        let body = prompt('Текст');
+        
+        this.props.dispatch(CommentActions.addComment(userId, id, title, body));
     }
 
 
