@@ -35,7 +35,8 @@ export function commentReducer(state = {comments: [], is_loading: false}, action
             if(comment.id == action.payload.id) {
              comment.title = action.payload.title;
              comment.body = action.payload.body;
-            } */
+            };
+            return comment */
          
            state = {...state, 
            comments: state.comments.map(comment => comment.id === action.payload.id ? (comment.title = action.payload.title, comment.body = action.payload.body, comment) : comment)};
