@@ -30087,7 +30087,8 @@
 	                  if(comment.id == action.payload.id) {
 	                   comment.title = action.payload.title;
 	                   comment.body = action.payload.body;
-	                  } */
+	                  };
+	                  return comment */
 	
 	                state = _extends({}, state, {
 	                    comments: state.comments.map(function (comment) {
@@ -33762,7 +33763,7 @@
 	
 	            var elem = void 0;
 	
-	            console.log(this.props.params.hrefBlogPost);
+	            console.log(this.props.hrefBlogPost);
 	
 	            switch (this.props.params.hrefBlogPost) {
 	                case 'blogpost1':

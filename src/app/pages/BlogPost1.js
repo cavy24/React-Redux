@@ -32,13 +32,13 @@ export default class BlogPost1 extends React.Component
             let hrefBlogPost = '';
             let nameButton = 'Назад';
 
-            let elem;
+            let elem = this.props.params.hrefBlogPost;
 
             console.log(this.props.params.hrefBlogPost);
                    
-            switch (this.props.params.hrefBlogPost) {
+           /* switch (this.props.params.hrefBlogPost) {
                 case 'blogpost1':{
-                   elem =0;
+                   elem = 0;
                    break;
                  };
                  case 'blogpost2':{
@@ -52,7 +52,7 @@ export default class BlogPost1 extends React.Component
                 default:
                 elem = null;
                     break;
-            }
+            }*/
     
             console.log(elem);
         return <div>
