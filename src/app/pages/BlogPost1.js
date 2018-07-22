@@ -32,7 +32,7 @@ export default class BlogPost1 extends React.Component
             let hrefBlogPost = '';
             let nameButton = 'Назад';
 
-            let elem = this.props.params.hrefBlogPost;
+            let elem = this.props.params.hrefBlogPost - 1;
 
             console.log(this.props.params.hrefBlogPost);
                    

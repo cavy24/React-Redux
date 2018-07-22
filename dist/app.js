@@ -104,7 +104,7 @@
 	            _react2.default.createElement(
 	                _reactRouter.Route,
 	                { path: 'blog', component: _Blog2.default },
-	                _react2.default.createElement(_reactRouter.Route, { path: ':hrefBlog', component: _BlogPost2.default })
+	                _react2.default.createElement(_reactRouter.Route, { path: ':hrefBlogPost', component: _BlogPost2.default })
 	            ),
 	            _react2.default.createElement(_reactRouter.Route, { path: '*', component: _PageNotFound2.default })
 	        )
@@ -33251,7 +33251,7 @@
 	                        'This blog post shows a few different types of content that\'s supported and styled with Bootstrap. Basic typography, images, and code are all supported.'
 	                    )
 	                ),
-	                hrefBlogPost: 'blogpost1',
+	                hrefBlogPost: '1',
 	                nameButton: 'Подробнее'
 	            }, {
 	                titleBlogItem: 'Another blog post',
@@ -33293,7 +33293,7 @@
 	                        )
 	                    )
 	                ),
-	                hrefBlogPost: 'blogpost2',
+	                hrefBlogPost: '2',
 	                nameButton: 'Подробнее'
 	            }, {
 	                titleBlogItem: 'New feature',
@@ -33339,7 +33339,7 @@
 	                        )
 	                    )
 	                ),
-	                hrefBlogPost: 'blogpost3',
+	                hrefBlogPost: '3',
 	                nameButton: 'Подробнее'
 	            }];
 	
@@ -33761,30 +33761,27 @@
 	            var hrefBlogPost = '';
 	            var nameButton = 'Назад';
 	
-	            var elem = void 0;
+	            var elem = this.props.params.hrefBlogPost - 1;
 	
-	            console.log(this.props.hrefBlogPost);
+	            console.log(this.props.params.hrefBlogPost);
 	
-	            switch (this.props.params.hrefBlogPost) {
-	                case 'blogpost1':
-	                    {
-	                        elem = 0;
-	                        break;
-	                    };
-	                case 'blogpost2':
-	                    {
-	                        elem = 1;
-	                        break;
-	                    };
-	                case 'blogpost3':
-	                    {
-	                        elem = 2;
-	                        break;
-	                    }
-	                default:
-	                    elem = null;
+	            /* switch (this.props.params.hrefBlogPost) {
+	                 case 'blogpost1':{
+	                    elem = 0;
 	                    break;
-	            }
+	                  };
+	                  case 'blogpost2':{
+	                     elem = 1
+	                     break;
+	                  };
+	                  case 'blogpost3':{
+	                     elem = 2
+	                     break;
+	                  }
+	                 default:
+	                 elem = null;
+	                     break;
+	             }*/
 	
 	            console.log(elem);
 	            return _react2.default.createElement(

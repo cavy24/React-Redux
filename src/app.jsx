@@ -21,7 +21,7 @@ ReactDOM.render(
         <IndexRoute component={Main} />
         <Route path="comments" component={Comments} />
         <Route path="blog" component={Blog}>
-            <Route path=":hrefBlog" component={BlogPost1} />
+            <Route path=":hrefBlogPost" component={BlogPost1} />
         </Route>
         <Route path="*" component={PageNotFound} />
     </Route>
